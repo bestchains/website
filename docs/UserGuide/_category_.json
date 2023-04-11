@@ -1,0 +1,8 @@
+{
+  "label": "用户指南",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "提供Bestchains所有相关模块的使用文档"
+  }
+}
