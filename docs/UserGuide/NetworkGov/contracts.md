@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 title: 智能合约管理
 sidebar_label: 智能合约管理
 ---
