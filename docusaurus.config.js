@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Bestchains',
-  tagline: 'OpenSourced FullStack Management on Blockchains',
+  title: 'BESTCHAIN ',
+  tagline: '提供完全开源、全栈式的Web3解决方案',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
