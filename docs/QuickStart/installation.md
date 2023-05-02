@@ -83,7 +83,7 @@ make e2e
 ## 手动部署
 
 > **Note**  
-> 部分组件的安装有依赖顺序。需要先部署 u4a-component, 该组件提供平台的基础服务，包括认证， 证书管理等。然后再部署 baas-componet，addon 等组件。
+> 部分组件的安装有依赖顺序。需要先部署 u4a-component, 该组件提供平台的基础服务，包括认证， 证书管理等。然后再部署 baas-component，addon 等组件。
 
 安装之前，首先要规划 ingress-nginx 和 kube-oidc-proxy 的安装节点，
 **这两个服务不要使用相同 Kubernetes 节点**，修改 `scripts/e2e.sh` 。
@@ -117,7 +117,7 @@ oidc-server-86c769c5f6-xm6rb                                  2/2     Running   
 resource-view-controller-94645667-khwq5                       1/1     Running   0          6m40s
 ```
 
-### 2. 安装 baas-componet
+### 2. 安装 baas-component
 
 `baas-component` 包含 `fabric-operator`,`bc-apis`,`minio`, `tekton-operator` 这四个服务。
 其中 `minio` 和 `tekton-operator` 是依赖组件，`fabirc-operator`、`bc-apis` 这两个服务会一起部署。
