@@ -169,7 +169,39 @@ Flags:
 
 ### 创建存证
 
-TODO
+通过`-h`查看命令定义
+
+```
+Usage:
+  bc-cli create depository NAME [args] [flags]
+
+Flags:
+  -a, --account string       account to be used
+      --contentID string     depot file ID
+  -t, --contentType string   depot file type
+  -h, --help                 help for depository
+  -o, --host string          host URL
+  -n, --name string          depot name
+  -p, --platform string      depot source platform
+      --untrusted            put untrusted value (default true)
+  -w, --wallet string        wallet path
+```
+
+1. 创建未受信任存证（无需账号信息），返回存证 id：
+`name`：存证名称；`contentID`：存证文件ID；`type`：存证文件类型；`platform`：存证来源平台
+
+     ```
+     ./bc-cli create depository -n dep1 --contentID 123456789 -t file -p bestchains --host https://bc-saas.172.22.96.209.nip.io
+     {"kid":"2afbb84dc8d19cd8c10264a8b72e7975385d169b"}
+     ```
+
+2. 创建存证（需要账号信息），返回存证 id：
+`name`：存证名称；`contentID`：存证文件ID；`type`：存证文件类型；`platform`：存证来源平台；`untrusted`：是否存储未受信任存证（此处为否）；`account`：账号区块链地址，格式为`0x0000000000000000000000000000000000000000`
+
+     ```
+     ./bc-cli create depository -n dep1 --contentID 1234567890 -t file -p bestchains --host https://bc-saas.172.22.96.209.nip.io --untrusted=false -a 0x6b72ee599c570831ceb41809cb49805eb58e6f59
+     {"kid":"2636d287351f1f51f35e98602c055ede1fdeb966"}
+     ```
 
 ### 存证列表
 
