@@ -9,6 +9,42 @@ sidebar_label: CLI 使用介绍
 `bc-cli` 可以用来管理账户信息，管理存证，以及查看汲取中构成区块链的多种资源，包括不限于联盟，网络等。
 该工具包含 `create`, `delete`, `get` 三个主要命令, 用来操作 `account`, `depository` 等资源。
 
+## 配置文件
+
+可以通过 `--config` 指定配置文件，默认位置为 `~/.bestchains/config.yaml`
+
+典型配置文件如下：
+
+```yaml
+auth:
+    enable: true
+    expiry: 1683440692
+    idtoken: eyJhbGciOiJSUzI1NiIsImtpZCI6IjMzYjA4NGIzZmJlZDJiODI2MDg0MDIyOTYwZjJmODhmY2E1NjBkODcifQ.eyJpc3MiOiJodHRwczovL3BvcnRhbC4xNzIuMjIuOTYuMjA5Lm5pcC5pby9vaWRjIiwic3ViIjoiQ2doaWFuZHpkMkZ1WnhJR2F6aHpZM0prIiwiYXVkIjoiYmMtY2xpIiwiZXhwIjoxNjgzNDQwNDc0LCJpYXQiOjE2ODMzNTQwNzQsImF0X2hhc2giOiJqbFFldnVMcGc1cWs1aGFuR2lBXzdRIiwiY19oYXNoIjoiZm1PQ04yb3FGVk96a0c2cU1nTGViQSIsImVtYWlsIjoiYWRtaW5AdGVueGNsb3VkLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cHMiOlsiaWFtLnRlbnhjbG91ZC5jb20iLCJvYnNldmFiaWxpdHkiLCJyZXNvdXJjZS1yZWFkZXIiLCJiZXN0Y2hhaW5zIl0sIm5hbWUiOiJiandzd2FuZyIsInByZWZlcnJlZF91c2VybmFtZSI6ImJqd3N3YW5nIiwicGhvbmUiOiIiLCJ1c2VyaWQiOiJiandzd2FuZyJ9.eY-7kGcsMAJxmZaG2t_Q1ZtaK6PBuvtxodueppkFCpbJ2RDOxhP9zdmm1pE23eClu0oWxgELBsAkVfgVqrs2gSkTjvM1CWOd-p-cWX464hBYgYfnlrFo0bKV3D4v-kdHvrpS-sa02In0N0ZDpQzK2GcJWRzJkdsf3MPzOxoC-M3-B8TK3Egpl1JOIgAAvDaFx50OwGcBxXeHZewe-NXSUiOo7YowBRD7dPyF841Le2gN12O3lUpW3fQ4iEVRo7rL22J49r3t66B1S3qTVyPKWYwrs78kAJJ7a13LA_HkjMGZ6cc70Skr8C4h8wzeBx-TZvn658XUfpU04yfh86mqsA
+    issuerurl: https://portal.172.22.96.209.nip.io/oidc
+    refreshtoken: ChlkZnVyZXN4am5jMzY3aHd3YXY3aDNrZ3BnEhl0aXM0amI1c2c2ZnB1bm83a2g1Mnl1cmt4
+saas:
+    depository:
+        server: https://bc-saas.172.22.96.209.nip.io
+```
+
+1. auth 为认证相关信息
+   1. enable：是否启用认证，布尔值，在服务器端启用认证时，CLI 不启用认证，访问请求将会失败，而服务器端没有启用认证时，CLI 启用认证时，认证参数将被服务器端忽略。
+   2. expiry：IDToken 的过期时间 unix 时间戳，一般不需要手动配置，认证完成后会自动更新。
+   3. idtoken：认证的 IDToken ，一般不需要手动配置，认证完成后会自动更新。
+   4. issuerurl：认证的 OIDC 服务器地址，也可通过 `--issuer-url` 参数配置。
+   5. refreshtoken：认证的 RefreshToken，一般不需要手动配置，认证完成后会自动更新。
+2. saas 为 saas 组件相关配置
+   1. depository 为存证相关配置
+      1. server 为存证服务器配置
+
+## 认证
+
+通过配置配置文件中 `auth.enable` 的值为 `true` 或者使用 `--enable-auth` 参数可以开启 OIDC 认证模式。通过配置配置文件中 `auth.issuerurl` 的值或者使用 `--issuer-url` 参数来指定认证 OIDC 服务器的地址。
+
+CLI将首先试图读取配置文件中的认证信息，验证认证信息是否有效，如果认证过期，将会首先尝试后台自动刷新IDToken认证信息，后台刷新失效时，会自动在默认浏览器中弹出 OIDC 认证界面供用户登陆，如下图所示：
+
+![认证展示](../img/bc-cli-auth.gif)
+
 ## 账户管理
 
 ### 添加账户
