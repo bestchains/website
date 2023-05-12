@@ -17,6 +17,8 @@ sidebar_label: CLI 使用介绍
 
 ```yaml
 auth:
+    clientid: bc-cli
+    clientsecret: bc-cli-cli
     enable: true
     expiry: 1683440692
     idtoken: eyJhbGciOiJSUzI1NiIsImtpZCI6IjMzYjA4NGIzZmJlZDJiODI2MDg0MDIyOTYwZjJmODhmY2E1NjBkODcifQ.eyJpc3MiOiJodHRwczovL3BvcnRhbC4xNzIuMjIuOTYuMjA5Lm5pcC5pby9vaWRjIiwic3ViIjoiQ2doaWFuZHpkMkZ1WnhJR2F6aHpZM0prIiwiYXVkIjoiYmMtY2xpIiwiZXhwIjoxNjgzNDQwNDc0LCJpYXQiOjE2ODMzNTQwNzQsImF0X2hhc2giOiJqbFFldnVMcGc1cWs1aGFuR2lBXzdRIiwiY19oYXNoIjoiZm1PQ04yb3FGVk96a0c2cU1nTGViQSIsImVtYWlsIjoiYWRtaW5AdGVueGNsb3VkLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cHMiOlsiaWFtLnRlbnhjbG91ZC5jb20iLCJvYnNldmFiaWxpdHkiLCJyZXNvdXJjZS1yZWFkZXIiLCJiZXN0Y2hhaW5zIl0sIm5hbWUiOiJiandzd2FuZyIsInByZWZlcnJlZF91c2VybmFtZSI6ImJqd3N3YW5nIiwicGhvbmUiOiIiLCJ1c2VyaWQiOiJiandzd2FuZyJ9.eY-7kGcsMAJxmZaG2t_Q1ZtaK6PBuvtxodueppkFCpbJ2RDOxhP9zdmm1pE23eClu0oWxgELBsAkVfgVqrs2gSkTjvM1CWOd-p-cWX464hBYgYfnlrFo0bKV3D4v-kdHvrpS-sa02In0N0ZDpQzK2GcJWRzJkdsf3MPzOxoC-M3-B8TK3Egpl1JOIgAAvDaFx50OwGcBxXeHZewe-NXSUiOo7YowBRD7dPyF841Le2gN12O3lUpW3fQ4iEVRo7rL22J49r3t66B1S3qTVyPKWYwrs78kAJJ7a13LA_HkjMGZ6cc70Skr8C4h8wzeBx-TZvn658XUfpU04yfh86mqsA
@@ -25,6 +27,13 @@ auth:
 saas:
     depository:
         server: https://bc-saas.172.22.96.209.nip.io
+cluster:
+  server: https://172.22.96.146:9443
+  certificateauthority: ""
+  disablecompression: false
+  insecureskiptlsverify: false
+  locationoforigin: ""
+  proxyurl: ""
 ```
 
 1. auth 为认证相关信息
@@ -258,3 +267,76 @@ Flags:
     28       d2a61f5d32cb5c8e73e7b36b4011b63c9bc5af68    bestchains                                                                                                55             2023-04-27T10:34:33
     27       1da7b7b3ae76706bf16b7a094593650c93696b0f    bestchains                                                                                                54             2023-04-27T09:38:09
     ```
+
+## Bestchains 资源管理
+
+### 获取组织列表
+
+获取组织列表，支持获取一个，多个，以及全部的用户可见的组织。如果没有权限，会返回错误信息。  
+支持 `kubectl get` 的展示性参数，例如 `-oyaml`, `-ojson`, `--showlabels` 等，以及通过 `labelselector` 和 `fieldselector` 选择资源。
+
+1. 获取全部组织信息
+
+    ```shell
+    ➜  bc-cli git:(org) ✗ ./bc-cli get org
+    NAME        AGE
+    2345        20d
+    dayu        24d
+    tenxcloud   24d
+    testorg1    24d
+    testorg2    24d
+    ```
+
+2. 获取一个，多个组织信息
+
+    ```shell
+    ➜  bc-cli git:(org) ✗ ./bc-cli get org dayu
+    NAME   AGE
+    dayu   24d
+    ➜  bc-cli git:(org) ✗ ./bc-cli get org dayu testorg2
+    NAME       AGE
+    dayu       24d
+    testorg2   24d
+    ```
+
+3. 通过标签选择组织
+
+    ```shell
+    ➜  bc-cli git:(org) ✗ ./bc-cli get org -l=bestchains.organization.admin=marsdawe --show-labels
+    NAME       AGE   LABELS
+    testorg1   24d   bestchains.organization.admin=marsdawe
+    testorg2   24d   bestchains.organization.admin=marsdawe
+    ```
+
+4. 以 yaml 方式展示内容
+
+    ```shell
+    ➜  bc-cli git:(org) ✗ ./bc-cli get org -l=bestchains.organization.admin=marsdawe -oyaml              
+    apiVersion: v1
+    items:
+    - apiVersion: ibp.com/v1beta1
+      kind: Organization
+      metadata:
+        creationTimestamp: "2023-04-17T09:04:39Z"
+        generation: 1
+        labels:
+          bestchains.organization.admin: marsdawe
+        name: testorg1
+        resourceVersion: "574846745"
+        uid: 68877e3a-0411-40fb-a0cf-11a6fe9fcf8c
+      # ...
+    - apiVersion: ibp.com/v1beta1
+      kind: Organization
+      metadata:
+        creationTimestamp: "2023-04-17T09:26:25Z"
+        generation: 1
+        labels:
+          bestchains.organization.admin: marsdawe
+        name: testorg2
+        resourceVersion: "568602322"
+        uid: 4740807c-9575-478d-8578-f8fe394dd704
+      # ...
+    kind: List
+    metadata: {}
+    ```
+  
