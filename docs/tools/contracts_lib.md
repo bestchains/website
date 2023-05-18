@@ -6,10 +6,14 @@ sidebar_label: 合约库
 
 目前，`bestchains` 合约库中共有 6 种合约，其详细信息分列如下：
 
+:::tip
+可通过[智能合约开发](../DevGuide/contract_dev.md)来使用合约。
+:::tip
+
 ## Nonce 合约
 
 - 开发状态：已完成
-- 用途：提供账户 nonce 值赋值、自增及比对功能，可在[智能合约开发](https://github.com/bestchains/website/blob/main/docs/DevGuide/contract_dev.md)中用于核验操作有效性。
+- 用途：提供账户 nonce 值赋值、自增及比对功能。
 - [合约代码链接](https://github.com/bestchains/bestchains-contracts/blob/main/contracts/nonce/nonce.go)
 - 核心功能：
     1. 查询指定账户当前 nonce 值
