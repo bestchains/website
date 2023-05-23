@@ -356,3 +356,57 @@ Flags:
     kind: List
     metadata: {}
     ```
+
+### 获取通道连接文件
+
+获取通道的连接文件，通过`-h`查看命令定义，`--channel` 用来指定通道名称，`--org` 用来指定通道相关的组织（需是用户作为admin管理的组织），`--peer` 用来指定通道相关的节点，`--output` 用来指定文件输出的格式，支持“json”和“yaml”，`--dir` 用来指定文件输出的目录，默认是 `$HOME/.bestchains/connProfile`。
+
+```shell
+➜  bc-cli git:(main) ✗ ./bc-cli get connProfile -h
+Get channel's connection profile
+
+Usage:
+  bc-cli get connProfile [flags]
+
+Flags:
+      --channel string   channel name
+      --dir string       output file path
+  -h, --help             help for connProfile
+      --org string       organization name
+      --output string    output file type (default "json")
+      --peer string      fabric peer name
+```
+
+1. 查看通道资源名称和节点名称
+
+    ```shell
+    ➜  ~ kubectl get chan channel-1gsuf -o yaml
+    apiVersion: ibp.com/v1beta1
+    kind: Channel
+    metadata:
+      generation: 1
+      labels:
+        bestchains.channel.network: dayu-7e064
+      name: channel-1gsuf # 通道资源名称
+    spec:
+      id: dayu
+      license:
+        accept: true
+      members:
+      - initiator: true
+        joinedAt: "2023-04-17T09:27:37Z"
+        name: dayu # 相关组织
+      network: dayu-7e064
+      peers:
+      - name: dayu-peer-fb87u # 相关节点
+        namespace: dayu
+
+    ```
+
+2. 获取一个通道的连接文件
+
+    ```shell
+    ➜  bc-cli git:(main) ✗ ./bc-cli get connProfile --channel channel-5b2dq --org dayu --peer dayu-peer-fb87u --output json --enable-auth                  
+    connProfile /Users/xxx/.bestchains/connProfile/channel-5b2dq.json saved
+
+    ```
