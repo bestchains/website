@@ -75,7 +75,7 @@ saas:
 
 ### 添加账户
 
-通过`-h`查看命令定义，`--pk` 用来指定用户自己提供的`ecdsa`私钥，如果未使用该参数，会自动创建一个私钥。 `--wallet` 用来指定生成的用户账户地址以及私钥存储位置，默认是 `$HOME/.bestchains/wallet`。目前数据未做加密处理。
+通过 `-h` 查看命令定义，目前不支持自定义私钥，由代码自动生成。 `--wallet` 用来指定生成的用户账户地址以及私钥存储位置，默认是 `$HOME/.bestchains/wallet`。目前数据未做加密处理。
 
 ```shell
 ➜  bc-cli git:(main) ✗ ./bc-cli create account -h
@@ -86,8 +86,7 @@ Usage:
 
 Flags:
   -h, --help            help for account
-      --pk string       the user's own private key, which is automatically generated if not provided
-      --wallet string   wallet path
+      --wallet string   wallet path (default "$HOME/.bestchains/wallet")
 ```
 
 1. 自动生成私钥，将用户信息存储到默认位置
@@ -103,31 +102,15 @@ Flags:
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli create account --wallet=/tmp/abc
-    account/0xafbff1c5658a03aa03a08f9e3ab8cab2d9a5a1eb created
-    ➜  bc-cli git:(main) ✗ ls /tmp/abc 
-    0xafbff1c5658a03aa03a08f9e3ab8cab2d9a5a1eb
-    ```
-
-3. 提供私钥，将用户存储到默认位置
-
-    准备私钥，并存放在文件`pk.pem`中
-
-    ```shell
-    ➜  bc-cli git:(main) ✗ cat pk.pem  
-    -----BEGIN PRIVATE KEY-----
-    MHcCAQEEIDuaob5MQI3tl8H/Z8L+VIiKaER1r/aojZfeRapKpbBhoAoGCCqGSM49
-    AwEHoUQDQgAER6bI26M8/6cEwpHNm+wHq/wxU4ISG/2xfcyGeAsghx4hAUjVg9rr
-    XYwFcMEK3BTGtx7v6Ai2OhxK4wF6/jibOA==
-    -----END PRIVATE KEY-----
-    ➜  bc-cli git:(main) ✗ ./bc-cli create account --pk=./pk.pem
-    account/0x7f0c733bcdb6721ed266a952ec697d9bea8022ad created
-    ➜  bc-cli git:(main) ✗ ls $HOME/.bestchains/wallet 
-    0x7f0c733bcdb6721ed266a952ec697d9bea8022ad 0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8
+    account/0xd133443860676fdf41f9d51a422642866ec4c61d created
+    ➜  bc-cli git:(main) ✗ ./bc-cli get account --wallet=/tmp/abc
+    ACCOUNT
+    0xd133443860676fdf41f9d51a422642866ec4c61d
     ```
 
 ### 查看账户信息
 
-通过`-h`查看命令定义，通过`--wallet`参数来查看不同`wallet`下的账户列表。
+通过 `-h` 查看命令定义，通过 `--wallet` 参数来查看不同 `wallet` 下的账户列表。
 
 ```
 ➜  bc-cli git:(main) ✗ ./bc-cli get account -h
@@ -138,7 +121,7 @@ Usage:
 
 Flags:
   -h, --help            help for account
-      --wallet string   wallet path
+      --wallet string   wallet path (default "$HOME/.bestchains/wallet")
 ```
 
 ```shell
@@ -153,18 +136,18 @@ ACCOUNT
 
 ### 删除账户信息
 
-通过`-h`查看命令定义，通过`--wallet`参数来删除不同`wallet`下的账户列表, 支持一次删除多个。
+通过 `-h` 查看命令定义，通过 `--wallet` 参数来删除不同 `wallet` 下的账户列表, 支持一次删除多个。
 
 ```
-➜  bc-cli git:(main) ✗ ./bc-cli get account -h
-Display account information according to wallet path
+➜  bc-cli git:(main) ✗ ./bc-cli delete account -h
+Delete the account according to the wallet information.
 
 Usage:
-  bc-cli get account [flags]
+  bc-cli delete account [address] [flags]
 
 Flags:
   -h, --help            help for account
-      --wallet string   wallet path
+      --wallet string   wallet path (default "$HOME/.bestchains/wallet")
 ```
 
 1. 删除 `/tmp/abc` 下面的账户信息
@@ -195,7 +178,7 @@ Flags:
 
 ### 创建存证
 
-通过`-h`查看命令定义
+通过 `-h` 查看命令定义
 
 ```
 Usage:
@@ -231,7 +214,7 @@ Flags:
 
 ### 存证列表
 
-通过`-h`查看命令定义
+通过 `-h` 查看命令定义
 
 ```
 ➜  bc-cli git:(main) ✗ ./bc-cli get depository -h
@@ -267,7 +250,7 @@ Flags:
     0        18d714ab63365b4c198479a6607ad652fd0c9d56    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  48             2023-04-26T18:51:09
     ```
 
-2. 根据kid获取存证
+2. 根据 kid 获取存证
 
     ```
     ➜  bc-cli git:(main) ✗ ./bc-cli get depository --host=https://bc-saas.172.22.96.209.nip.io -k=fbef356cae5b9ada2b0e9c5bc6138fdf320ed1ba
@@ -359,7 +342,7 @@ Flags:
 
 ### 获取通道连接文件
 
-获取通道的连接文件，通过`-h`查看命令定义，`--channel` 用来指定通道名称，`--org` 用来指定通道相关的组织（需是用户作为admin管理的组织），`--peer` 用来指定通道相关的节点，`--output` 用来指定文件输出的格式，支持“json”和“yaml”，`--dir` 用来指定文件输出的目录，默认是 `$HOME/.bestchains/connProfile`。
+获取通道的连接文件，通过 `-h` 查看命令定义，`--channel` 用来指定通道名称，`--org` 用来指定通道相关的组织（需是用户作为 admin 管理的组织），`--peer` 用来指定通道相关的节点，`--output` 用来指定文件输出的格式，支持“json”和“yaml”，`--dir` 用来指定文件输出的目录，默认是 `$HOME/.bestchains/connProfile`。
 
 ```shell
 ➜  bc-cli git:(main) ✗ ./bc-cli get connProfile -h
