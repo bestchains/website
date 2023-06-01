@@ -340,6 +340,107 @@ Flags:
     metadata: {}
     ```
 
+### 获取提议列表
+
+获取当前用户的提议，支持获取一个、多个，以及当前用户的全部提议。通过 `-h` 查看命令定义。
+支持 `kubectl get` 的展示性参数，例如 `-o json`, `-o yaml` 等。
+
+1. 获取当前用户的全部提议
+
+    ```shell
+    ➜  bc-cli git:(main) ✗ ./bc-cli get proposal
+    NAME                               AGE
+    create-federation-proposal-9naqk   41d
+    create-federation-proposal-cem6r   44d
+    create-federation-proposal-eail0   44d
+    deploy-chaincode-proposal-1wtno    8d
+    ```
+
+2. 获取一个、多个提议信息
+
+    ```shell
+    ➜  bc-cli git:(main) ✗ ./bc-cli get proposal create-federation-proposal-9naqk
+    NAME                               AGE
+    create-federation-proposal-9naqk   41d
+
+    ➜  bc-cli git:(main) ✗ ./bc-cli get proposal create-federation-proposal-9naqk create-federation-proposal-cem6r
+    NAME                               AGE
+    create-federation-proposal-9naqk   41d
+    create-federation-proposal-cem6r   44d
+    ```
+
+3. 以 `yaml` 方式展示提议信息
+
+    ```shell
+    ➜  bc-cli git:(main) ✗ ./bc-cli get proposal deploy-chaincode-proposal-1wtno -o yaml
+    apiVersion: ibp.com/v1beta1
+    kind: Proposal
+    metadata:
+      creationTimestamp: "2023-05-23T06:05:03Z"
+      generation: 1
+      labels:
+        bestchains.chaincode.delete.proposal: chaincode-du5kk
+        bestchains.proposal.type: DeployChaincodeProposal
+      name: deploy-chaincode-proposal-1wtno
+      ownerReferences:
+      - apiVersion: ibp.com/v1beta1
+        kind: Federation
+        name: proof
+        uid: 82633066-8b3b-4f7e-ad5a-7f77257808a9
+    spec:
+      deployChaincode:
+        chaincode: chaincode-du5kk
+        externalBuilder: chaincodebuild-k0067
+        members:
+        - initiator: true
+          name: tenxcloud
+      # ...
+    ```
+
+### 获取网络列表
+
+获取当前用户的网络列表，支持获取一个、多个，以及当前用户的全部网络。通过 `-h` 查看命令定义。
+支持 `kubectl get` 的展示性参数，例如 `-o json`、`-o yaml` 等。
+
+1. 获取当前用户的全部网络
+
+    ```shell
+    ➜  bc-cli git:(main) ✗ ./bc-cli get network
+    NAME          AGE
+    proof-c0zpw   44d
+    test-727th    44d
+    ```
+
+2. 获取一个或多个网络信息
+
+    ```shell
+    ➜  bc-cli git:(main) ✗ ./bc-cli get network proof-c0zpw
+    NAME          AGE
+    proof-c0zpw   44d
+    ➜  bc-cli git:(main) ✗ ./bc-cli get network proof-c0zpw test-727th
+    NAME          AGE
+    proof-c0zpw   44d
+    test-727th    44d
+    ```
+
+3. 以 `yaml` 的方式展示网络信息
+
+    ```shell
+    ➜  bc-cli git:(main) ✗ ./bc-cli get network proof-c0zpw -o yaml
+    apiVersion: ibp.com/v1beta1
+    kind: Network
+    metadata:
+      creationTimestamp: "2023-04-17T09:09:45Z"
+      generation: 1
+      labels:
+        bestchains.network.federation: proof
+        bestchains.network.initiator: tenxcloud
+      name: proof-c0zpw
+    spec:
+      federation: proof
+      # ...
+    ```
+
 ### 获取通道连接文件
 
 获取通道的连接文件，通过 `-h` 查看命令定义，`--channel` 用来指定通道名称，`--org` 用来指定通道相关的组织（需是用户作为 admin 管理的组织），`--peer` 用来指定通道相关的节点，`--output` 用来指定文件输出的格式，支持“json”和“yaml”，`--dir` 用来指定文件输出的目录，默认是 `$HOME/.bestchains/connProfile`。
