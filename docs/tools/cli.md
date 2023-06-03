@@ -494,3 +494,56 @@ Flags:
     connProfile /Users/xxx/.bestchains/connProfile/channel-5b2dq.json saved
 
     ```
+
+### 获取 EndorsePolicy
+
+获取指定网络下 EndorsePolicy 列表，支持获取一个、多个。通过 `-h` 查看命令定义。`--network` 是必选参数，指定具体的网络。`--channel` 是可选参数，指定网络下若干通道，多个通道名称通过逗号分隔。  
+支持 `kubectl get` 的展示性参数，例如 `-o json`、`-o yaml` 等。
+
+```shell
+➜  bc-cli git:(main) ✗ ./bc-cli get ep -h
+Get endorsepolicy according to blockchain network
+
+Examples:
+  # Get all the endorsepolicies under a network
+  bc-cli get ep --netowrk=<network-name>
+
+  # Get the endorsepolicy for a number of channels specified by a network
+  bc-cli get ep --network=<network-name> --channel=<channel1>,<channel2>
+
+  # Specify the endorsepolicy name
+  bc-cli get ep --network=<netowkr-name> ep1 ep2
+
+Usage:
+  bc-cli get ep [NAME] [flags]
+```
+
+1. 获取某个网络的全部 EndorsePolicy
+
+    ```shell
+    ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel                                
+    NAEM            CHANNEL
+    epolicy-7bu8o   channel-kll7r
+    epolicy-bj4xw   channel-z56ar
+    epolicy-tkeyx   channel-c9j2j
+    epolicy-toy3i   channel-d2jty
+    ```
+
+2. 获取某个网络下指定通道的全部 EndorsePolicy
+
+    ```shell
+    ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw --channel=channel-kll7r,channel-d2jty -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel
+    NAEM            CHANNEL
+    epolicy-7bu8o   channel-kll7r
+    epolicy-toy3i   channel-d2jty
+    ```
+
+3. 获取某个网络指定通道下面的若干 EndorsePolicy
+
+    有一个 abc 的 EndorsePolicy 名称，但是集群里并不存在，所以会将其过滤掉。
+
+    ```shell
+    ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw --channel=channel-kll7r,channel-d2jty -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel epolicy-7bu8o abc
+    NAEM            CHANNEL
+    epolicy-7bu8o   channel-kll7r
+    ```
