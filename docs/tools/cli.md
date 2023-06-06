@@ -540,7 +540,7 @@ Usage:
 
 3. 获取某个网络指定通道下面的若干 EndorsePolicy
 
-    有一个 abc 的 EndorsePolicy 名称，但是集群里并不存在，所以会将其过滤掉。
+    尝试获取名字为 `abc`, `epolicy-7bu8o` 的 EndorsePolicy，但是 `abc` 在集群中并不存在， 所以最后只展示 `epolicy-7bu8o`.
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw --channel=channel-kll7r,channel-d2jty -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel epolicy-7bu8o abc
