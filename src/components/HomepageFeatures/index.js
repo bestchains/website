@@ -4,52 +4,59 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: '简单易用',
+    title: '秒级部署',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        支持平台快速部署、区块链网络可视化管理、智能合约全生命周期管理，并提供官方合约仓库支持
+        深度结合云原生技术本身能力,实现区块链网络的快速部署以及智能合约的快速构建部署，保证平台稳定、安全、可扩展
       </>
     ),
   },
   {
-    title: '云原生深度结合',
+    title: '云原生DAO',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        转化区块链组件为云原生资源,并深度结合云原生技术本身能力，保证平台稳定、安全、可扩展
+        实现云原生DAO(去中心化自治组织),完成对联盟、网络、合约的治理。支持多种治理策略,完美适配区块链去中心化决策特性
       </>
     ),
   },
   {
-    title: '开源友好',
+    title: '合约商店',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        项目所有源代码完全开源,遵循Apache-2.0 License,欢迎所有人参与贡献
+        提供多种智能合约实现,涵盖数字藏品、数字存证、ERC20、时间锁、访问控制等业务合约以及Safemath、timer、content等库合约
       </>
     ),
   },
   {
-    title: '公平的投票决策机制',
+    title: '一键SaaS',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        平台内部通过Proposal-Vote机制来完成联盟性质的内部决策,支持:   
-           All Majority OneVeto
-        等多种策略,完美适配区块链去中心化决策特性
+        提供区块链数字存证、数字藏品等多种SaaS服务
       </>
     ),
   },
   {
-    title: '细粒度的资源访问控制',
+    title: '可视化监控',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        基于云原生平台RBAC实现更细粒度的区块链资源访问控制,提升平台化区块链服务的安全性
+        实时监控联盟、网络、合约状态，快速定位问题，提供可视化监控报表。
       </>
     ),
-  }
+  },
+  {
+    title: '工具',
+    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    description: (
+      <>
+        提供CLI工具,支持平台资源、SaaS服务操作,方便开发和运维人员。
+      </>
+    ),
+  },
 ];
 
 function Feature({Svg, title, description}) {
