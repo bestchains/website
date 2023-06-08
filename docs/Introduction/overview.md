@@ -8,36 +8,27 @@ Bestchain 是完全开源、全栈式的Web3解决方案。
 
 ![产品矩阵](../img/bestchains_stack.png)
 
-### Layer1基础设施层
+### 基础设施层
 
-通过[Kubebb](https://github.com/kubebb)部署和管理基础设施，包括:
+通过[KubeBB](https://github.com/kubebb)管理基础设施.
 
-- [Kubernetes](https://kubernetes.io/)，容器编排平台
-- [U4A组件](https://github.com/kubebb/building-base)，提供身份认证授权、访问控制
-- [Nginx Ingress](https://docs.nginx.com/nginx-ingress-controller/)组件，提供外部访问平台内部服务的负载均衡、SSL加密等能力
-- Addons扩展组件，如：
-  - [Kubernetes Dashboard](https://github.com/kubernetes/dashboard)
-  - [kubelogin](https://github.com/int128/kubelogin)
-
-### Layer2区块链平台层
+### 区块链平台层
 
 提供平台化的区块链管理能力，包括:
 
-- 组织管理
-- 联盟管理
-- 网络管理
-- 通道管理
-- 合约管理
+- 组织治理
+- 联盟治理
+- 网络治理
+- 通道治理
+- 合约治理
+- 云原生DAO
 
 以及相应的：
 
-- 内部区块链浏览器
-- 实时日志
-- 监控
+- 区块链浏览器
+- 实时监控
 
-等能力
-
-### Layer3底层区块链网络
+### 区块链网络层
 
 底层区块链网络是整个Web3解决方案的核心，目前底层区块链技术大致可分为两类：
 
@@ -53,7 +44,7 @@ Bestchain 是完全开源、全栈式的Web3解决方案。
 - 构建更加开放、健全的生态
 - 为联盟链和其他公链提供一个通用的**中继链跨链**方案
 
-### Layer4解决方案层
+### 解决方案层
 
 围绕区块链网络，我们准备从以下几个方向入手：
 
