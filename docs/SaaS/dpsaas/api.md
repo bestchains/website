@@ -109,7 +109,8 @@ curl -k -XPOST -H'Content-Type: application/json' https://bc-saas.172.22.96.209.
 关于测试数据的生成
 
 ```go
-// arg.json: {"name":"abc","contentType": "json","contentID": "id","trustedTimestamp": "1234","platform": "bestchains"}
+// arg.json: {"name":"abc","contentType": "json","contentID": "id","trustedTimestamp": "1234","platform": "bestchains","description":"description","contentSize":1024}
+// contentSize 是文件大小，单位 byte
 package main
 
 import (
@@ -215,8 +216,8 @@ curl -k -XPOST -H'Content-Type: application/json' https://bc-saas.172.22.96.209.
 | size | 分页每一页的条目数量 | 否  | 10 |
 | startTime | 开始时间, 单位是秒 | 否 | |
 | endTime | 结束时间，单位秒 | 否 | |
-| name | 存证名称 | 否 | | 
-| contentName | 文件名称或者其他的描述信息 | 否 | |
+| name | 存证名称, 支持模糊搜索 | 否 | |
+| contentName | 文件名称或者其他的描述信息，支持模糊搜索 | 否 | |
 | kid | 存证 kid | 否 | |
 
 `测试`:
