@@ -547,3 +547,74 @@ Usage:
     NAEM            CHANNEL
     epolicy-7bu8o   channel-kll7r
     ```
+
+### 获取 chaincodebuild
+
+获取指定网络下或者指定若干名称的 chaincodebuild 列表，支持获取一个，多个，通过 `-h` 查看命令定义。  
+如果指定了若干chaincodebuild 的名称，`--network` 是非必选参数。否则 `--network` 是必选参数，指定具体的网络。  
+`--id` 是可选参数，chaincodebuild 的 id。  
+`--version` 也是可选参数，chaincodebuild 的版本。  
+
+支持 `kubectl get` 的展示性参数，例如 `-o json`、`-o yaml` 等。
+
+```shell
+➜  bc-cli git:(main) ✗ ./bc-cli get ccb -h                   
+Get the list of chaincodebuild created under a network
+
+Usage:
+  bc-cli get ccb [NAME] [flags]
+```
+
+1. 获取某个网络下的所有 chaincodebuild
+
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get ccb --network=proof-c0zpw
+  NAME                   AGE
+  chaincodebuild-0af6b   67d
+  chaincodebuild-3n4nr   66d
+  chaincodebuild-3z6so   60d
+  chaincodebuild-78wh0   66d
+  chaincodebuild-cijkd   25d
+  chaincodebuild-fd76h   67d
+  chaincodebuild-jc1hr   66d
+  chaincodebuild-k0067   31d
+  chaincodebuild-m1m8z   58d
+  chaincodebuild-ofo8j   62d
+  chaincodebuild-psbot   66d
+  chaincodebuild-syltf   65d
+  chaincodebuild-u802r   63d
+  chaincodebuild-u9e8k   65d
+  ```
+
+2. 获取某个网络下的指定 id 的 chaincodebuild 列表
+
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get ccb --network=proof-c0zpw --id=proof
+  NAME                   AGE
+  chaincodebuild-0af6b   67d
+  chaincodebuild-78wh0   66d
+  chaincodebuild-fd76h   67d
+  chaincodebuild-ofo8j   62d
+  chaincodebuild-syltf   65d
+  chaincodebuild-u802r   63d
+  chaincodebuild-u9e8k   65d
+  ```
+
+3. 获取某个网络下指定 id 和 vresion 的 chaincodebuild 列表
+
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get ccb --network=proof-c0zpw --id=proof --version=v0.0.1
+  NAME                   AGE
+  chaincodebuild-0af6b   67d
+  chaincodebuild-fd76h   67d
+  ```
+
+4. 获取指定若干名称的 chaincodebuild
+
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get ccb chaincodebuild-0af6b chaincodebuild-fd76h   
+  NAME                   AGE
+  chaincodebuild-0af6b   67d
+  chaincodebuild-fd76h   67d
+  ```
+
