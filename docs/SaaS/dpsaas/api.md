@@ -200,6 +200,7 @@ curl -k -XPOST -H'Content-Type: application/json' https://bc-saas.172.22.96.209.
 ```
 
 `返回`:
+
 ```json
 {"status":true,"reason":"value match"}
 ```
@@ -246,4 +247,27 @@ curl -k https://bc-saas.172.22.96.209.nip.io/basic/depositories/18b682430b2ee5cd
 
 ```json
 {"index":"6","kid":"18b682430b2ee5cdcb17c0ea678a52223056d256","platform":"bestchains","operator":"0x02624bfc011381aa1f4e19db60e3f46673f1f171","owner":"0xe4af6dcf67b5ec06d903ec175a0c7e47f38249b2","blockNumber":72,"name":"abc","contentName":"","contentID":"id","contentType":"id","trustedTimestamp":"1683343692"}
+```
+
+## 根据存证 kid 获取存证证书
+
+`API`: GET /basic/depositories/certificate/:kid
+
+`测试`:
+
+```
+curl -k https://bc-saas.172.22.96.209.nip.io/basic/depositories/certificate/18b682430b2ee5cdcb17c0ea678a52223056d256
+```
+
+`返回`:
+
+证书文件会从浏览器中直接下载,证书内容如下：
+
+![存证证书示例](../../img/depository_cert_example.png)
+
+其中，返回的HTTP Response Header:
+
+```shell
+Content-Type: application/octet-stream
+Content-Disposition: attachment; filename=18b682430b2ee5cdcb17c0ea678a52223056d256.pdf
 ```
