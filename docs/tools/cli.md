@@ -600,7 +600,7 @@ Usage:
   chaincodebuild-u9e8k   65d
   ```
 
-3. 获取某个网络下指定 id 和 vresion 的 chaincodebuild 列表
+3. 获取某个网络下指定 id 和 version 的 chaincodebuild 列表
 
   ```shell
   ➜  bc-cli git:(main) ✗ ./bc-cli get ccb --network=proof-c0zpw --id=proof --version=v0.0.1
@@ -618,3 +618,42 @@ Usage:
   chaincodebuild-fd76h   67d
   ```
 
+### 获取 channel
+
+获取指定网络下或指定名称的 channel，按名称获取支持一个、多个，通过 `-h` 查看命令定义。`--network` 为必选参数。
+
+```shell
+$ ./bc-cli get channel -h                   
+Get the list of channels created under a network
+
+Usage:
+  bc-cli get channel [NAME] -n NETWORK-NAME [flags]
+```
+
+1. 获取指定网络下的所有 channel
+
+  ```shell
+  $ ./bc-cli get channel -n proof-c0zpw
+  NAME            AGE
+  channel-z56ar   70d
+  channel-c9j2j   69d
+  channel-d2jty   66d
+  channel-kll7r   35d
+  ```
+
+2. 获取指定网络中某一名称的 channel
+
+  ```shell
+  $ ./bc-cli get channel channel-z56ar -n proof-c0zpw
+  NAME            AGE
+  channel-z56ar   70d
+  ```
+
+3. 获取指定网络中若干名称的 channel
+
+  ```shell
+  $ ./bc-cli get channel channel-z56ar channel-c9j2j -n proof-c0zpw
+  NAME            AGE
+  channel-z56ar   70d
+  channel-c9j2j   69d
+  ```
