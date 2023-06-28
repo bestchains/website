@@ -89,7 +89,7 @@ Flags:
       --wallet string   wallet path (default "$HOME/.bestchains/wallet")
 ```
 
-1. 自动生成私钥，将用户信息存储到默认位置
+示例1. 自动生成私钥，将用户信息存储到默认位置
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli create account
@@ -98,7 +98,7 @@ Flags:
     0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8
     ```
 
-2. 自动生成私钥，并且将账户信息存储到本地的`/tmp/abc`目录
+示例2. 自动生成私钥，并且将账户信息存储到本地的`/tmp/abc`目录
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli create account --wallet=/tmp/abc
@@ -112,7 +112,7 @@ Flags:
 
 通过 `-h` 查看命令定义，通过 `--wallet` 参数来查看不同 `wallet` 下的账户列表。
 
-```
+```shell
 ➜  bc-cli git:(main) ✗ ./bc-cli get account -h
 Display account information according to wallet path
 
@@ -138,7 +138,7 @@ ACCOUNT
 
 通过 `-h` 查看命令定义，通过 `--wallet` 参数来删除不同 `wallet` 下的账户列表, 支持一次删除多个。
 
-```
+```shell
 ➜  bc-cli git:(main) ✗ ./bc-cli delete account -h
 Delete the account according to the wallet information.
 
@@ -150,7 +150,7 @@ Flags:
       --wallet string   wallet path (default "$HOME/.bestchains/wallet")
 ```
 
-1. 删除 `/tmp/abc` 下面的账户信息
+示例1. 删除 `/tmp/abc` 下面的账户信息
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli delete account --wallet=/tmp/abc 0xafbff1c5658a03aa03a08f9e3ab8cab2d9a5a1eb
@@ -159,7 +159,7 @@ Flags:
     ACCOUNT
     ```
 
-2. 删除默认位置的多个账户信息
+示例2. 删除默认位置的多个账户信息
 
     可以注意到，在删除的命令后面多一个`abc`账户，但是这账户信息并不存在。所以给出报错信息。
 
@@ -196,18 +196,18 @@ Flags:
   -w, --wallet string        wallet path
 ```
 
-1. 创建未受信任存证（无需账号信息），返回存证 id：
+示例1. 创建未受信任存证（无需账号信息），返回存证 id：
 `name`：存证名称；`contentID`：存证文件ID；`type`：存证文件类型；`platform`：存证来源平台
 
-  ```
+  ```shell
   ./bc-cli create depository -n dep1 --contentID 123456789 -t file -p bestchains --host https://bc-saas.172.22.96.209.nip.io
   {"kid":"2afbb84dc8d19cd8c10264a8b72e7975385d169b"}
   ```
 
-2. 创建存证（需要账号信息），返回存证 id：
+示例2. 创建存证（需要账号信息），返回存证 id：
 `name`：存证名称；`contentID`：存证文件ID；`type`：存证文件类型；`platform`：存证来源平台；`untrusted`：是否存储未受信任存证（此处为否）；`account`：账号区块链地址，格式为`0x0000000000000000000000000000000000000000`
 
-  ```
+  ```shell
   ./bc-cli create depository -n dep1 --contentID 1234567890 -t file -p bestchains --host https://bc-saas.172.22.96.209.nip.io --untrusted=false -a 0x6b72ee599c570831ceb41809cb49805eb58e6f59
   {"kid":"2636d287351f1f51f35e98602c055ede1fdeb966"}
   ```
@@ -216,7 +216,7 @@ Flags:
 
 通过 `-h` 查看命令定义
 
-```
+```shell
 ➜  bc-cli git:(main) ✗ ./bc-cli get depository -h
 Get one or more depositories
 
@@ -233,9 +233,9 @@ Flags:
   -s, --size int             pagination size (default 10)
 ```
 
-1. 获取全部存证信息
+示例1. 获取全部存证信息
 
-    ```
+    ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get depository --host=https://bc-saas.172.22.96.209.nip.io
     INDEX    KID                                         PLATFORM      OPERATOR                                      OWNER                                         BLOCKNUMBER    TIME
     7        fbef356cae5b9ada2b0e9c5bc6138fdf320ed1ba    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  73             2023-05-06T13:24:53
@@ -250,17 +250,17 @@ Flags:
     0        18d714ab63365b4c198479a6607ad652fd0c9d56    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  48             2023-04-26T18:51:09
     ```
 
-2. 根据 kid 获取存证
+示例2. 根据 kid 获取存证
 
-    ```
+    ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get depository --host=https://bc-saas.172.22.96.209.nip.io -k=fbef356cae5b9ada2b0e9c5bc6138fdf320ed1ba
     INDEX    KID                                         PLATFORM      OPERATOR                                      OWNER    BLOCKNUMBER    TIME
     7        fbef356cae5b9ada2b0e9c5bc6138fdf320ed1ba    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171             73             2023-05-06T13:24:53
     ```
 
-3. 使用 `from`, `size` 控制返回数量以及偏移数据
+示例3. 使用 `from`, `size` 控制返回数量以及偏移数据
 
-    ```
+    ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get depository --host=https://bc-saas.172.22.96.209.nip.io -f=1 -s=3
     INDEX    KID                                         PLATFORM      OPERATOR                                      OWNER                                         BLOCKNUMBER    TIME
     6        18b682430b2ee5cdcb17c0ea678a52223056d256    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171    0xe4af6dcf67b5ec06d903ec175a0c7e47f38249b2    72             2023-05-06T11:28:12
@@ -275,7 +275,7 @@ Flags:
 获取组织列表，支持获取一个，多个，以及全部的用户可见的组织。如果没有权限，会返回错误信息。  
 支持 `kubectl get` 的展示性参数，例如 `-oyaml`, `-ojson`, `--showlabels` 等，以及通过 `labelselector` 和 `fieldselector` 选择资源。
 
-1. 获取全部组织信息
+示例1. 获取全部组织信息
 
     ```shell
     ➜  bc-cli git:(org) ✗ ./bc-cli get org
@@ -287,7 +287,7 @@ Flags:
     testorg2    24d
     ```
 
-2. 获取一个，多个组织信息
+示例2. 获取一个，多个组织信息
 
     ```shell
     ➜  bc-cli git:(org) ✗ ./bc-cli get org dayu
@@ -299,7 +299,7 @@ Flags:
     testorg2   24d
     ```
 
-3. 通过标签选择组织
+示例3. 通过标签选择组织
 
     ```shell
     ➜  bc-cli git:(org) ✗ ./bc-cli get org -l=bestchains.organization.admin=marsdawe --show-labels
@@ -308,7 +308,7 @@ Flags:
     testorg2   24d   bestchains.organization.admin=marsdawe
     ```
 
-4. 以 yaml 方式展示内容
+示例4. 以 yaml 方式展示内容
 
     ```shell
     ➜  bc-cli git:(org) ✗ ./bc-cli get org -l=bestchains.organization.admin=marsdawe -oyaml              
@@ -345,7 +345,7 @@ Flags:
 获取当前用户的提议，支持获取一个、多个，以及当前用户的全部提议。通过 `-h` 查看命令定义。
 支持 `kubectl get` 的展示性参数，例如 `-o json`, `-o yaml` 等。
 
-1. 获取当前用户的全部提议
+示例1. 获取当前用户的全部提议
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get proposal
@@ -356,7 +356,7 @@ Flags:
     deploy-chaincode-proposal-1wtno    8d
     ```
 
-2. 获取一个、多个提议信息
+示例2. 获取一个、多个提议信息
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get proposal create-federation-proposal-9naqk
@@ -369,7 +369,7 @@ Flags:
     create-federation-proposal-cem6r   44d
     ```
 
-3. 以 `yaml` 方式展示提议信息
+示例3. 以 `yaml` 方式展示提议信息
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get proposal deploy-chaincode-proposal-1wtno -o yaml
@@ -402,7 +402,7 @@ Flags:
 获取当前用户的网络列表，支持获取一个、多个，以及当前用户的全部网络。通过 `-h` 查看命令定义。
 支持 `kubectl get` 的展示性参数，例如 `-o json`、`-o yaml` 等。
 
-1. 获取当前用户的全部网络
+示例1. 获取当前用户的全部网络
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get network
@@ -411,7 +411,7 @@ Flags:
     test-727th    44d
     ```
 
-2. 获取一个或多个网络信息
+示例2. 获取一个或多个网络信息
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get network proof-c0zpw
@@ -423,7 +423,7 @@ Flags:
     test-727th    44d
     ```
 
-3. 以 `yaml` 的方式展示网络信息
+示例3. 以 `yaml` 的方式展示网络信息
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get network proof-c0zpw -o yaml
@@ -461,7 +461,7 @@ Flags:
       --peer string      fabric peer name
 ```
 
-1. 查看通道资源名称和节点名称
+示例1. 查看通道资源名称和节点名称
 
     ```shell
     ➜  ~ kubectl get chan channel-1gsuf -o yaml
@@ -487,7 +487,7 @@ Flags:
 
     ```
 
-2. 获取一个通道的连接文件
+示例2. 获取一个通道的连接文件
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get connProfile --channel channel-5b2dq --org dayu --peer dayu-peer-fb87u --output json --enable-auth                  
@@ -518,7 +518,7 @@ Usage:
   bc-cli get ep [NAME] [flags]
 ```
 
-1. 获取某个网络的全部 EndorsePolicy
+示例1. 获取某个网络的全部 EndorsePolicy
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel                                
@@ -529,7 +529,7 @@ Usage:
     epolicy-toy3i   channel-d2jty
     ```
 
-2. 获取某个网络下指定通道的全部 EndorsePolicy
+示例2. 获取某个网络下指定通道的全部 EndorsePolicy
 
     ```shell
     ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw --channel=channel-kll7r,channel-d2jty -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel
@@ -538,7 +538,7 @@ Usage:
     epolicy-toy3i   channel-d2jty
     ```
 
-3. 获取某个网络指定通道下面的若干 EndorsePolicy
+示例3. 获取某个网络指定通道下面的若干 EndorsePolicy
 
     尝试获取名字为 `abc`, `epolicy-7bu8o` 的 EndorsePolicy，但是 `abc` 在集群中并不存在， 所以最后只展示 `epolicy-7bu8o`.
 
@@ -565,7 +565,7 @@ Usage:
   bc-cli get ccb [NAME] [flags]
 ```
 
-1. 获取某个网络下的所有 chaincodebuild
+示例1. 获取某个网络下的所有 chaincodebuild
 
   ```shell
   ➜  bc-cli git:(main) ✗ ./bc-cli get ccb --network=proof-c0zpw
@@ -586,7 +586,7 @@ Usage:
   chaincodebuild-u9e8k   65d
   ```
 
-2. 获取某个网络下的指定 id 的 chaincodebuild 列表
+示例2. 获取某个网络下的指定 id 的 chaincodebuild 列表
 
   ```shell
   ➜  bc-cli git:(main) ✗ ./bc-cli get ccb --network=proof-c0zpw --id=proof
@@ -600,7 +600,7 @@ Usage:
   chaincodebuild-u9e8k   65d
   ```
 
-3. 获取某个网络下指定 id 和 version 的 chaincodebuild 列表
+示例3. 获取某个网络下指定 id 和 version 的 chaincodebuild 列表
 
   ```shell
   ➜  bc-cli git:(main) ✗ ./bc-cli get ccb --network=proof-c0zpw --id=proof --version=v0.0.1
@@ -609,7 +609,7 @@ Usage:
   chaincodebuild-fd76h   67d
   ```
 
-4. 获取指定若干名称的 chaincodebuild
+示例4. 获取指定若干名称的 chaincodebuild
 
   ```shell
   ➜  bc-cli git:(main) ✗ ./bc-cli get ccb chaincodebuild-0af6b chaincodebuild-fd76h   
@@ -630,7 +630,7 @@ Usage:
   bc-cli get channel [NAME] -n NETWORK-NAME [flags]
 ```
 
-1. 获取指定网络下的所有 channel
+示例1. 获取指定网络下的所有 channel
 
   ```shell
   $ ./bc-cli get channel -n proof-c0zpw
@@ -641,7 +641,7 @@ Usage:
   channel-kll7r   35d
   ```
 
-2. 获取指定网络中某一名称的 channel
+示例2. 获取指定网络中某一名称的 channel
 
   ```shell
   $ ./bc-cli get channel channel-z56ar -n proof-c0zpw
@@ -649,11 +649,98 @@ Usage:
   channel-z56ar   70d
   ```
 
-3. 获取指定网络中若干名称的 channel
+示例3. 获取指定网络中若干名称的 channel
 
   ```shell
   $ ./bc-cli get channel channel-z56ar channel-c9j2j -n proof-c0zpw
   NAME            AGE
   channel-z56ar   70d
   channel-c9j2j   69d
+  ```
+
+### 获取 chaincode
+
+获取指定 channel 的 chaincode 列表，支持查看一个或多个 chaincode 详细信息。通过 `-h` 查看命令定义。
+`--channel` 是必选参数，除非指定了若干 chaincode 名称。
+`--id` 是可选参数，chaincode 的 id。
+`--version` 是可选参数，chaincode 的 version。
+
+支持 `kubectl get` 的展示性参数，例如 `-o json`、`-o yaml` 等。
+
+```shell
+➜  bc-cli git:(main) ✗ ./bc-cli get chaincode -h
+Get a list of the chaincode installed on a channel
+
+Usage:
+  bc-cli get chaincode [NAME] [flags]
+```
+
+示例1. 获取指定 channel 下的 chaincode 列表
+
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get chaincode --channel channel-z56ar
+  NAME              AGE
+  chaincode-3bdbf   69d
+  chaincode-79t9d   70d
+  chaincode-9x3y4   69d
+  chaincode-d632u   69d
+  chaincode-g6vhr   69d
+  chaincode-l10c3   69d
+  chaincode-r1iu2   61d
+
+  ```
+
+示例2. 获取指定 channel 下的某个 id 的 chaincode 列表
+
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get chaincode --channel channel-z56ar --id acl
+  NAME              AGE
+  chaincode-d632u   69d
+  chaincode-g6vhr   69d
+  chaincode-l10c3   69d
+  ```
+
+示例3. 获取指定 channel 下的某个 id 和 version 的 chaincode 列表
+
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get chaincode --channel channel-z56ar --id acl --version v0.0.1
+  NAME              AGE
+  chaincode-d632u   69d
+  chaincode-g6vhr   69d
+  chaincode-l10c3   69d
+  ```
+
+示例4. 获取指定若干名称的 chaincode
+
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get chaincode chaincode-r1iu2 chaincode-l10c3
+  NAME              AGE
+  chaincode-r1iu2   61d
+  chaincode-l10c3   69d
+  ```
+
+示例5. 以 `yaml` 方式展示 chaincode 详细信息
+
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get chaincode chaincode-r1iu2 -o yaml
+  apiVersion: ibp.com/v1beta1
+  kind: Chaincode
+  metadata:
+    creationTimestamp: "2023-04-26T08:38:11Z"
+    generation: 2
+    labels:
+      bestchains.chaincode.channel: channel-z56ar
+      bestchains.chaincode.id: depository
+      bestchains.chaincode.version: v0.0.2
+      bestchians.chaincode.endorsementpolicy: epolicy-bj4xw
+    name: chaincode-r1iu2
+    resourceVersion: "673796295"
+    uid: 3fb44b49-274f-4d39-9df4-20a204ac7aef
+  spec:
+    channel: channel-z56ar
+    endorsePolicyRef:
+      name: epolicy-bj4xw
+    externalBuilder: chaincodebuild-m1m8z
+    id: depository
+    # ...
   ```
