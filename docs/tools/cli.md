@@ -91,22 +91,22 @@ Flags:
 
 示例1. 自动生成私钥，将用户信息存储到默认位置
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli create account
-    account/0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8 created
-    ➜  bc-cli git:(main) ✗ ls $HOME/.bestchains/wallet 
-    0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli create account
+  account/0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8 created
+  ➜  bc-cli git:(main) ✗ ls $HOME/.bestchains/wallet
+  0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8
+  ```
 
 示例2. 自动生成私钥，并且将账户信息存储到本地的`/tmp/abc`目录
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli create account --wallet=/tmp/abc
-    account/0xd133443860676fdf41f9d51a422642866ec4c61d created
-    ➜  bc-cli git:(main) ✗ ./bc-cli get account --wallet=/tmp/abc
-    ACCOUNT
-    0xd133443860676fdf41f9d51a422642866ec4c61d
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli create account --wallet=/tmp/abc
+  account/0xd133443860676fdf41f9d51a422642866ec4c61d created
+  ➜  bc-cli git:(main) ✗ ./bc-cli get account --wallet=/tmp/abc
+  ACCOUNT
+  0xd133443860676fdf41f9d51a422642866ec4c61d
+  ```
 
 ### 查看账户信息
 
@@ -125,7 +125,7 @@ Flags:
 ```
 
 ```shell
-➜  bc-cli git:(main) ✗ ./bc-cli get account       
+➜  bc-cli git:(main) ✗ ./bc-cli get account
 ACCOUNT
 0x7f0c733bcdb6721ed266a952ec697d9bea8022ad
 0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8
@@ -152,27 +152,27 @@ Flags:
 
 示例1. 删除 `/tmp/abc` 下面的账户信息
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli delete account --wallet=/tmp/abc 0xafbff1c5658a03aa03a08f9e3ab8cab2d9a5a1eb
-    account "0xafbff1c5658a03aa03a08f9e3ab8cab2d9a5a1eb" deleted
-    ➜  bc-cli git:(main) ✗ ./bc-cli get account --wallet=/tmp/abc                                              
-    ACCOUNT
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli delete account --wallet=/tmp/abc 0xafbff1c5658a03aa03a08f9e3ab8cab2d9a5a1eb
+  account "0xafbff1c5658a03aa03a08f9e3ab8cab2d9a5a1eb" deleted
+  ➜  bc-cli git:(main) ✗ ./bc-cli get account --wallet=/tmp/abc
+  ACCOUNT
+  ```
 
 示例2. 删除默认位置的多个账户信息
 
-    可以注意到，在删除的命令后面多一个`abc`账户，但是这账户信息并不存在。所以给出报错信息。
+  可以注意到，在删除的命令后面多一个`abc`账户，但是这账户信息并不存在。所以给出报错信息。
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get account                  
-    ACCOUNT
-    0x7f0c733bcdb6721ed266a952ec697d9bea8022ad
-    0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8
-    ➜  bc-cli git:(main) ✗ ./bc-cli delete account 0x7f0c733bcdb6721ed266a952ec697d9bea8022ad 0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8 abc
-    account "0x7f0c733bcdb6721ed266a952ec697d9bea8022ad" deleted
-    account "0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8" deleted
-    Error: account "abc" remove /home/digua/.bestchains/wallet/abc: no such file or directory
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get account
+  ACCOUNT
+  0x7f0c733bcdb6721ed266a952ec697d9bea8022ad
+  0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8
+  ➜  bc-cli git:(main) ✗ ./bc-cli delete account 0x7f0c733bcdb6721ed266a952ec697d9bea8022ad 0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8 abc
+  account "0x7f0c733bcdb6721ed266a952ec697d9bea8022ad" deleted
+  account "0xc3c45ce32438c2d7fb54cee74ff27505bf0bafc8" deleted
+  Error: account "abc" remove /home/digua/.bestchains/wallet/abc: no such file or directory
+  ```
 
 ## 存证管理
 
@@ -235,38 +235,78 @@ Flags:
 
 示例1. 获取全部存证信息
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get depository --host=https://bc-saas.172.22.96.209.nip.io
-    INDEX    KID                                         PLATFORM      OPERATOR                                      OWNER                                         BLOCKNUMBER    TIME
-    7        fbef356cae5b9ada2b0e9c5bc6138fdf320ed1ba    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  73             2023-05-06T13:24:53
-    6        18b682430b2ee5cdcb17c0ea678a52223056d256    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171    0xe4af6dcf67b5ec06d903ec175a0c7e47f38249b2    72             2023-05-06T11:28:12
-    28       d2a61f5d32cb5c8e73e7b36b4011b63c9bc5af68    bestchains                                                                                                55             2023-04-27T10:34:33
-    27       1da7b7b3ae76706bf16b7a094593650c93696b0f    bestchains                                                                                                54             2023-04-27T09:38:09
-    5        93b81217a6c96da33729f54eadc57a7e3ae848e0    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  53             2023-04-26T19:07:40
-    4        ac5eb9848caa1c8002b019493294f86c74e63bba    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  52             2023-04-26T19:00:30
-    3        60d7b8f15a48617fd9879815293db9cab1d5bdc6    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  51             2023-04-26T18:52:17
-    2        e29afb7686ba0fa465295624f43b97df5505b665    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  50             2023-04-26T18:51:15
-    1        a86d95ee04f272aa9bcb619196a6a59efd97a6b1    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  49             2023-04-26T18:51:12
-    0        18d714ab63365b4c198479a6607ad652fd0c9d56    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  48             2023-04-26T18:51:09
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get depository --host=https://bc-saas.172.22.96.209.nip.io
+  INDEX    KID                                         PLATFORM      OPERATOR                                      OWNER                                         BLOCKNUMBER    TIME
+  7        fbef356cae5b9ada2b0e9c5bc6138fdf320ed1ba    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  73             2023-05-06T13:24:53
+  6        18b682430b2ee5cdcb17c0ea678a52223056d256    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171    0xe4af6dcf67b5ec06d903ec175a0c7e47f38249b2    72             2023-05-06T11:28:12
+  28       d2a61f5d32cb5c8e73e7b36b4011b63c9bc5af68    bestchains                                                                                                55             2023-04-27T10:34:33
+  27       1da7b7b3ae76706bf16b7a094593650c93696b0f    bestchains                                                                                                54             2023-04-27T09:38:09
+  5        93b81217a6c96da33729f54eadc57a7e3ae848e0    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  53             2023-04-26T19:07:40
+  4        ac5eb9848caa1c8002b019493294f86c74e63bba    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  52             2023-04-26T19:00:30
+  3        60d7b8f15a48617fd9879815293db9cab1d5bdc6    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  51             2023-04-26T18:52:17
+  2        e29afb7686ba0fa465295624f43b97df5505b665    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  50             2023-04-26T18:51:15
+  1        a86d95ee04f272aa9bcb619196a6a59efd97a6b1    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  49             2023-04-26T18:51:12
+  0        18d714ab63365b4c198479a6607ad652fd0c9d56    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171                                                  48             2023-04-26T18:51:09
+  ```
 
 示例2. 根据 kid 获取存证
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get depository --host=https://bc-saas.172.22.96.209.nip.io -k=fbef356cae5b9ada2b0e9c5bc6138fdf320ed1ba
-    INDEX    KID                                         PLATFORM      OPERATOR                                      OWNER    BLOCKNUMBER    TIME
-    7        fbef356cae5b9ada2b0e9c5bc6138fdf320ed1ba    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171             73             2023-05-06T13:24:53
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get depository --host=https://bc-saas.172.22.96.209.nip.io -k=fbef356cae5b9ada2b0e9c5bc6138fdf320ed1ba
+  INDEX    KID                                         PLATFORM      OPERATOR                                      OWNER    BLOCKNUMBER    TIME
+  7        fbef356cae5b9ada2b0e9c5bc6138fdf320ed1ba    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171             73             2023-05-06T13:24:53
+  ```
 
 示例3. 使用 `from`, `size` 控制返回数量以及偏移数据
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get depository --host=https://bc-saas.172.22.96.209.nip.io -f=1 -s=3
-    INDEX    KID                                         PLATFORM      OPERATOR                                      OWNER                                         BLOCKNUMBER    TIME
-    6        18b682430b2ee5cdcb17c0ea678a52223056d256    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171    0xe4af6dcf67b5ec06d903ec175a0c7e47f38249b2    72             2023-05-06T11:28:12
-    28       d2a61f5d32cb5c8e73e7b36b4011b63c9bc5af68    bestchains                                                                                                55             2023-04-27T10:34:33
-    27       1da7b7b3ae76706bf16b7a094593650c93696b0f    bestchains                                                                                                54             2023-04-27T09:38:09
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get depository --host=https://bc-saas.172.22.96.209.nip.io -f=1 -s=3
+  INDEX    KID                                         PLATFORM      OPERATOR                                      OWNER                                         BLOCKNUMBER    TIME
+  6        18b682430b2ee5cdcb17c0ea678a52223056d256    bestchains    0x02624bfc011381aa1f4e19db60e3f46673f1f171    0xe4af6dcf67b5ec06d903ec175a0c7e47f38249b2    72             2023-05-06T11:28:12
+  28       d2a61f5d32cb5c8e73e7b36b4011b63c9bc5af68    bestchains                                                                                                55             2023-04-27T10:34:33
+  27       1da7b7b3ae76706bf16b7a094593650c93696b0f    bestchains                                                                                                54             2023-04-27T09:38:09
+  ```
+
+### 下载证书
+
+通过 `-h` 查看命令定义，通过 `--certificate` 参数来表示需要下载证书，`--certificateStyle` 参数来指定证书的语言，可选值为 `CN` 或 `ENG`，默认为 `CN`。
+
+```shell
+➜  bc-cli git:(main) ✗ ./bc-cli get depository -h
+Get one or more depositories
+
+Usage:
+  bc-cli get depository [KID] [flags]
+
+Flags:
+      --certificate               download certificate by kid
+      --certificateStyle string   language of certificate（optional values are CN or ENG） (default "CN")
+  -c, --contentName string        search depository by content name
+  -f, --from int                  pagination
+  -h, --help                      help for depository
+      --host string               bc-saas server (default "http://localhost:9999")
+  -k, --kid string                search depository by kid
+  -n, --name string               search depository by name
+  -s, --size int                  pagination size (default 10)
+
+```
+
+示例1. 下载一个证书，证书为英文
+
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get depository cd97ee2faf890a3b3a5527ee9571a735aa3e4b0c --certificate --certificateStyle ENG
+  certificate cd97ee2faf890a3b3a5527ee9571a735aa3e4b0c.pdf downloaded
+
+  ```
+
+示例2. 下载多个证书，证书为中文
+
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get depository cd97ee2faf890a3b3a5527ee9571a735aa3e4b0c 5635ab1159528b88a099cccf81a3f2f0bb6f438f --certificate
+  certificate cd97ee2faf890a3b3a5527ee9571a735aa3e4b0c.pdf downloaded
+  certificate 5635ab1159528b88a099cccf81a3f2f0bb6f438f.pdf downloaded
+  ```
 
 ## Bestchains 资源管理
 
@@ -277,68 +317,68 @@ Flags:
 
 示例1. 获取全部组织信息
 
-    ```shell
-    ➜  bc-cli git:(org) ✗ ./bc-cli get org
-    NAME        AGE
-    2345        20d
-    dayu        24d
-    tenxcloud   24d
-    testorg1    24d
-    testorg2    24d
-    ```
+  ```shell
+  ➜  bc-cli git:(org) ✗ ./bc-cli get org
+  NAME        AGE
+  2345        20d
+  dayu        24d
+  tenxcloud   24d
+  testorg1    24d
+  testorg2    24d
+  ```
 
 示例2. 获取一个，多个组织信息
 
-    ```shell
-    ➜  bc-cli git:(org) ✗ ./bc-cli get org dayu
-    NAME   AGE
-    dayu   24d
-    ➜  bc-cli git:(org) ✗ ./bc-cli get org dayu testorg2
-    NAME       AGE
-    dayu       24d
-    testorg2   24d
-    ```
+  ```shell
+  ➜  bc-cli git:(org) ✗ ./bc-cli get org dayu
+  NAME   AGE
+  dayu   24d
+  ➜  bc-cli git:(org) ✗ ./bc-cli get org dayu testorg2
+  NAME       AGE
+  dayu       24d
+  testorg2   24d
+  ```
 
 示例3. 通过标签选择组织
 
-    ```shell
-    ➜  bc-cli git:(org) ✗ ./bc-cli get org -l=bestchains.organization.admin=marsdawe --show-labels
-    NAME       AGE   LABELS
-    testorg1   24d   bestchains.organization.admin=marsdawe
-    testorg2   24d   bestchains.organization.admin=marsdawe
-    ```
+  ```shell
+  ➜  bc-cli git:(org) ✗ ./bc-cli get org -l=bestchains.organization.admin=marsdawe --show-labels
+  NAME       AGE   LABELS
+  testorg1   24d   bestchains.organization.admin=marsdawe
+  testorg2   24d   bestchains.organization.admin=marsdawe
+  ```
 
 示例4. 以 yaml 方式展示内容
 
-    ```shell
-    ➜  bc-cli git:(org) ✗ ./bc-cli get org -l=bestchains.organization.admin=marsdawe -oyaml              
-    apiVersion: v1
-    items:
-    - apiVersion: ibp.com/v1beta1
-      kind: Organization
-      metadata:
-        creationTimestamp: "2023-04-17T09:04:39Z"
-        generation: 1
-        labels:
-          bestchains.organization.admin: marsdawe
-        name: testorg1
-        resourceVersion: "574846745"
-        uid: 68877e3a-0411-40fb-a0cf-11a6fe9fcf8c
-      # ...
-    - apiVersion: ibp.com/v1beta1
-      kind: Organization
-      metadata:
-        creationTimestamp: "2023-04-17T09:26:25Z"
-        generation: 1
-        labels:
-          bestchains.organization.admin: marsdawe
-        name: testorg2
-        resourceVersion: "568602322"
-        uid: 4740807c-9575-478d-8578-f8fe394dd704
-      # ...
-    kind: List
-    metadata: {}
-    ```
+  ```shell
+  ➜  bc-cli git:(org) ✗ ./bc-cli get org -l=bestchains.organization.admin=marsdawe -oyaml
+  apiVersion: v1
+  items:
+  - apiVersion: ibp.com/v1beta1
+    kind: Organization
+    metadata:
+      creationTimestamp: "2023-04-17T09:04:39Z"
+      generation: 1
+      labels:
+        bestchains.organization.admin: marsdawe
+      name: testorg1
+      resourceVersion: "574846745"
+      uid: 68877e3a-0411-40fb-a0cf-11a6fe9fcf8c
+    # ...
+  - apiVersion: ibp.com/v1beta1
+    kind: Organization
+    metadata:
+      creationTimestamp: "2023-04-17T09:26:25Z"
+      generation: 1
+      labels:
+        bestchains.organization.admin: marsdawe
+      name: testorg2
+      resourceVersion: "568602322"
+      uid: 4740807c-9575-478d-8578-f8fe394dd704
+    # ...
+  kind: List
+  metadata: {}
+  ```
 
 ### 获取提议列表
 
@@ -347,55 +387,55 @@ Flags:
 
 示例1. 获取当前用户的全部提议
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get proposal
-    NAME                               AGE
-    create-federation-proposal-9naqk   41d
-    create-federation-proposal-cem6r   44d
-    create-federation-proposal-eail0   44d
-    deploy-chaincode-proposal-1wtno    8d
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get proposal
+  NAME                               AGE
+  create-federation-proposal-9naqk   41d
+  create-federation-proposal-cem6r   44d
+  create-federation-proposal-eail0   44d
+  deploy-chaincode-proposal-1wtno    8d
+  ```
 
 示例2. 获取一个、多个提议信息
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get proposal create-federation-proposal-9naqk
-    NAME                               AGE
-    create-federation-proposal-9naqk   41d
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get proposal create-federation-proposal-9naqk
+  NAME                               AGE
+  create-federation-proposal-9naqk   41d
 
-    ➜  bc-cli git:(main) ✗ ./bc-cli get proposal create-federation-proposal-9naqk create-federation-proposal-cem6r
-    NAME                               AGE
-    create-federation-proposal-9naqk   41d
-    create-federation-proposal-cem6r   44d
-    ```
+  ➜  bc-cli git:(main) ✗ ./bc-cli get proposal create-federation-proposal-9naqk create-federation-proposal-cem6r
+  NAME                               AGE
+  create-federation-proposal-9naqk   41d
+  create-federation-proposal-cem6r   44d
+  ```
 
 示例3. 以 `yaml` 方式展示提议信息
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get proposal deploy-chaincode-proposal-1wtno -o yaml
-    apiVersion: ibp.com/v1beta1
-    kind: Proposal
-    metadata:
-      creationTimestamp: "2023-05-23T06:05:03Z"
-      generation: 1
-      labels:
-        bestchains.chaincode.delete.proposal: chaincode-du5kk
-        bestchains.proposal.type: DeployChaincodeProposal
-      name: deploy-chaincode-proposal-1wtno
-      ownerReferences:
-      - apiVersion: ibp.com/v1beta1
-        kind: Federation
-        name: proof
-        uid: 82633066-8b3b-4f7e-ad5a-7f77257808a9
-    spec:
-      deployChaincode:
-        chaincode: chaincode-du5kk
-        externalBuilder: chaincodebuild-k0067
-        members:
-        - initiator: true
-          name: tenxcloud
-      # ...
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get proposal deploy-chaincode-proposal-1wtno -o yaml
+  apiVersion: ibp.com/v1beta1
+  kind: Proposal
+  metadata:
+    creationTimestamp: "2023-05-23T06:05:03Z"
+    generation: 1
+    labels:
+      bestchains.chaincode.delete.proposal: chaincode-du5kk
+      bestchains.proposal.type: DeployChaincodeProposal
+    name: deploy-chaincode-proposal-1wtno
+    ownerReferences:
+    - apiVersion: ibp.com/v1beta1
+      kind: Federation
+      name: proof
+      uid: 82633066-8b3b-4f7e-ad5a-7f77257808a9
+  spec:
+    deployChaincode:
+      chaincode: chaincode-du5kk
+      externalBuilder: chaincodebuild-k0067
+      members:
+      - initiator: true
+        name: tenxcloud
+    # ...
+  ```
 
 ### 获取网络列表
 
@@ -404,42 +444,42 @@ Flags:
 
 示例1. 获取当前用户的全部网络
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get network
-    NAME          AGE
-    proof-c0zpw   44d
-    test-727th    44d
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get network
+  NAME          AGE
+  proof-c0zpw   44d
+  test-727th    44d
+  ```
 
 示例2. 获取一个或多个网络信息
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get network proof-c0zpw
-    NAME          AGE
-    proof-c0zpw   44d
-    ➜  bc-cli git:(main) ✗ ./bc-cli get network proof-c0zpw test-727th
-    NAME          AGE
-    proof-c0zpw   44d
-    test-727th    44d
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get network proof-c0zpw
+  NAME          AGE
+  proof-c0zpw   44d
+  ➜  bc-cli git:(main) ✗ ./bc-cli get network proof-c0zpw test-727th
+  NAME          AGE
+  proof-c0zpw   44d
+  test-727th    44d
+  ```
 
 示例3. 以 `yaml` 的方式展示网络信息
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get network proof-c0zpw -o yaml
-    apiVersion: ibp.com/v1beta1
-    kind: Network
-    metadata:
-      creationTimestamp: "2023-04-17T09:09:45Z"
-      generation: 1
-      labels:
-        bestchains.network.federation: proof
-        bestchains.network.initiator: tenxcloud
-      name: proof-c0zpw
-    spec:
-      federation: proof
-      # ...
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get network proof-c0zpw -o yaml
+  apiVersion: ibp.com/v1beta1
+  kind: Network
+  metadata:
+    creationTimestamp: "2023-04-17T09:09:45Z"
+    generation: 1
+    labels:
+      bestchains.network.federation: proof
+      bestchains.network.initiator: tenxcloud
+    name: proof-c0zpw
+  spec:
+    federation: proof
+    # ...
+  ```
 
 ### 获取通道连接文件
 
@@ -463,37 +503,36 @@ Flags:
 
 示例1. 查看通道资源名称和节点名称
 
-    ```shell
-    ➜  ~ kubectl get chan channel-1gsuf -o yaml
-    apiVersion: ibp.com/v1beta1
-    kind: Channel
-    metadata:
-      generation: 1
-      labels:
-        bestchains.channel.network: dayu-7e064
-      name: channel-1gsuf # 通道资源名称
-    spec:
-      id: dayu
-      license:
-        accept: true
-      members:
-      - initiator: true
-        joinedAt: "2023-04-17T09:27:37Z"
-        name: dayu # 相关组织
-      network: dayu-7e064
-      peers:
-      - name: dayu-peer-fb87u # 相关节点
-        namespace: dayu
-
-    ```
+  ```shell
+  ➜  ~ kubectl get chan channel-1gsuf -o yaml
+  apiVersion: ibp.com/v1beta1
+  kind: Channel
+  metadata:
+    generation: 1
+    labels:
+      bestchains.channel.network: dayu-7e064
+    name: channel-1gsuf # 通道资源名称
+  spec:
+    id: dayu
+    license:
+      accept: true
+    members:
+    - initiator: true
+      joinedAt: "2023-04-17T09:27:37Z"
+      name: dayu # 相关组织
+    network: dayu-7e064
+    peers:
+    - name: dayu-peer-fb87u # 相关节点
+      namespace: dayu
+  ```
 
 示例2. 获取一个通道的连接文件
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get connProfile --channel channel-5b2dq --org dayu --peer dayu-peer-fb87u --output json --enable-auth                  
-    connProfile /Users/xxx/.bestchains/connProfile/channel-5b2dq.json saved
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get connProfile --channel channel-5b2dq --org dayu --peer dayu-peer-fb87u --output json --enable-auth
+  connProfile /Users/xxx/.bestchains/connProfile/channel-5b2dq.json saved
 
-    ```
+  ```
 
 ### 获取 EndorsePolicy
 
@@ -520,33 +559,33 @@ Usage:
 
 示例1. 获取某个网络的全部 EndorsePolicy
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel                                
-    NAEM            CHANNEL
-    epolicy-7bu8o   channel-kll7r
-    epolicy-bj4xw   channel-z56ar
-    epolicy-tkeyx   channel-c9j2j
-    epolicy-toy3i   channel-d2jty
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel
+  NAEM            CHANNEL
+  epolicy-7bu8o   channel-kll7r
+  epolicy-bj4xw   channel-z56ar
+  epolicy-tkeyx   channel-c9j2j
+  epolicy-toy3i   channel-d2jty
+  ```
 
 示例2. 获取某个网络下指定通道的全部 EndorsePolicy
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw --channel=channel-kll7r,channel-d2jty -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel
-    NAEM            CHANNEL
-    epolicy-7bu8o   channel-kll7r
-    epolicy-toy3i   channel-d2jty
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw --channel=channel-kll7r,channel-d2jty -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel
+  NAEM            CHANNEL
+  epolicy-7bu8o   channel-kll7r
+  epolicy-toy3i   channel-d2jty
+  ```
 
 示例3. 获取某个网络指定通道下面的若干 EndorsePolicy
 
-    尝试获取名字为 `abc`, `epolicy-7bu8o` 的 EndorsePolicy，但是 `abc` 在集群中并不存在， 所以最后只展示 `epolicy-7bu8o`.
+  尝试获取名字为 `abc`, `epolicy-7bu8o` 的 EndorsePolicy，但是 `abc` 在集群中并不存在， 所以最后只展示 `epolicy-7bu8o`.
 
-    ```shell
-    ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw --channel=channel-kll7r,channel-d2jty -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel epolicy-7bu8o abc
-    NAEM            CHANNEL
-    epolicy-7bu8o   channel-kll7r
-    ```
+  ```shell
+  ➜  bc-cli git:(main) ✗ ./bc-cli get ep --network=proof-c0zpw --channel=channel-kll7r,channel-d2jty -o=custom-columns=NAEM:.metadata.name,CHANNEL:.spec.channel epolicy-7bu8o abc
+  NAEM            CHANNEL
+  epolicy-7bu8o   channel-kll7r
+  ```
 
 ### 获取 chaincodebuild
 
