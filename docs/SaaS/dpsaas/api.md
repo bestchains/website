@@ -253,17 +253,29 @@ curl -k https://bc-saas.172.22.96.209.nip.io/basic/depositories/18b682430b2ee5cd
 
 `API`: GET /basic/depositories/certificate/:kid
 
+`query参数`:
+
+| 参数名称 | 参数描述 | 必填 | 默认值 |
+| :--: | :--: | :--: | :--: |
+| style | 证书类型，支持 `CN`(中文证书)和`ENG`(英文证书)两种 | 否 | `CN` |
+
 `测试`:
 
 ```
-curl -k https://bc-saas.172.22.96.209.nip.io/basic/depositories/certificate/18b682430b2ee5cdcb17c0ea678a52223056d256
+curl -k https://bc-saas.172.22.96.209.nip.io/basic/depositories/certificate/18b682430b2ee5cdcb17c0ea678a52223056d25?style=CN
 ```
 
 `返回`:
 
 证书文件会从浏览器中直接下载,证书内容如下：
 
-![存证证书示例](../../img/depository_cert_example.png)
+- 中文证书
+
+![中文证书](../../img/depository_cert_example.png)
+
+- 英文证书
+
+![英文证书](../../img/depository_cert_example_ENG.png)
 
 其中，返回的HTTP Response Header:
 
